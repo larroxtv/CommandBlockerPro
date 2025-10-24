@@ -2,11 +2,10 @@ name: CommandBlockerPro
 version: '${project.version}'
 main: net.jadedmc.commandblockerpro.CommandBlockerProPlugin
 api-version: 1.13
-authors: [JadedMC]
+authors: [JadedMC, copyandbuild]
 description: Prevent specific commands from being used
 website: http://www.jadedmc.net
 folia-supported: true
-
 softdepend:
   - BetterReload
   - PlaceholderAPI
@@ -14,7 +13,7 @@ softdepend:
 commands:
   commandblocker:
     description: Main plugin command.
-    aliases: [cb,cbp,commandblockerpro]
+    aliases: [cb,cbp,commandblockerpro, nvcommandblocker, nvcmd]
     permission: commandblocker.admin
 
 permissions:
