@@ -245,13 +245,17 @@ public class Rule {
             return false;
         }
 
+        // prepare full and base command forms
+        final String fullCommandLower = command.toLowerCase();
+        final String baseCommandLower = fullCommandLower.split(" ")[0];
+
         // Check the type of the rule to determine if the command should be blocked.
         switch (type) {
             case BLACKLIST:
 
                 // Check for contained strings.
                 for(String containsString : contains) {
-                    if(command.toLowerCase().contains(containsString)) {
+                    if(fullCommandLower.contains(containsString)) {
                         return true;
                     }
                 }
@@ -268,12 +272,12 @@ public class Rule {
                     }
                 }
 
-                return commands.contains(command.toLowerCase());
+                return commands.contains(baseCommandLower);
 
             case WHITELIST:
                 // Check for contained strings.
                 for(String containsString : contains) {
-                    if(!command.toLowerCase().contains(containsString)) {
+                    if(!fullCommandLower.contains(containsString)) {
                         return true;
                     }
                 }
@@ -290,7 +294,7 @@ public class Rule {
                     }
                 }
 
-                return !commands.contains(command.toLowerCase());
+                return !commands.contains(baseCommandLower);
         }
 
         // If something goes wrong, don't block the command.
@@ -314,13 +318,17 @@ public class Rule {
             return false;
         }
 
+        // prepare full and base command forms
+        final String fullCommandLower = command.toLowerCase();
+        final String baseCommandLower = fullCommandLower.split(" ")[0];
+
         // Check the type of the rule to determine if the command should be hidden.
         switch(type) {
             case BLACKLIST:
             case HIDE:
                 // Check for contained strings.
                 for(String containsString : contains) {
-                    if(command.toLowerCase().contains(containsString)) {
+                    if(fullCommandLower.contains(containsString)) {
                         return true;
                     }
                 }
@@ -337,12 +345,12 @@ public class Rule {
                     }
                 }
 
-                return commands.contains(command.toLowerCase());
+                return commands.contains(baseCommandLower);
 
             case WHITELIST:
                 // Check for contained strings.
                 for(String containsString : contains) {
-                    if(!command.toLowerCase().contains(containsString)) {
+                    if(!fullCommandLower.contains(containsString)) {
                         return true;
                     }
                 }
@@ -359,7 +367,7 @@ public class Rule {
                     }
                 }
 
-                return !commands.contains(command.toLowerCase());
+                return !commands.contains(baseCommandLower);
         }
 
         // If something goes wrong, don't hide the command.

@@ -56,7 +56,7 @@ public class PlayerCommandPreprocessListener implements Listener {
     @EventHandler
     public void onCommandSend(@NotNull final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
-        final String command = event.getMessage().split(" ")[0];
+        final String command = event.getMessage();
 
         // Loop through each rule configured, blocking the command if the rule catches it.
         for(final Rule rule : plugin.getRuleManager().getRules()) {
