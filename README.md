@@ -1,4 +1,4 @@
-# <img src="https://i.imgur.com/AqPv22V.png"></img>
+# <img src="https://i.imgur.com/kpmkLOc.png"></img>
 <center><a href="https://github.com/JadedMC/CommandBlockerPro">Original Source Code</a> | <a href="https://github.com/larroxtv/CommandBlockerPro/issues">Support</a></center><br/>
 
 CommandBlockerPro is a feature-rich command blocking plugin for PaperMC (and forks of PaperMC) servers running Minecraft 1.12.2 or later. It's designed for servers trying to take their configuration to the next level, with the ability to set multiple different filters based on different conditions, with configurable block messages that support [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/).
