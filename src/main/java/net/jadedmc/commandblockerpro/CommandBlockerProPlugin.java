@@ -25,13 +25,13 @@
 package net.jadedmc.commandblockerpro;
 
 import net.jadedmc.commandblockerpro.commands.CommandBlockerCMD;
+import net.jadedmc.commandblockerpro.listeners.AsyncTabCompleteListener;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandSendListener;
 import net.jadedmc.commandblockerpro.listeners.ReloadListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
 import net.jadedmc.commandblockerpro.utils.CommandUtils;
-import net.jadedmc.commandblockerpro.utils.VersionUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -105,12 +105,13 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      */
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
-
-        // This event only exists on 1.13+.
-        if(VersionUtils.getServerVersion() >= 13) getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
+        getServer().getPluginManager().registerEvents(new AsyncTabCompleteListener(this), this);
 
         // Supports BetterReload if installed.
-        if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
+        if(this.hookManager.useBetterReload()) {
+            getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
+        }
     }
 
     /**
