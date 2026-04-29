@@ -26,6 +26,8 @@ package net.jadedmc.commandblockerpro.rules;
 
 import net.jadedmc.commandblockerpro.CommandBlockerPro;
 import net.jadedmc.commandblockerpro.utils.CommandUtils;
+import net.kyori.adventure.key.Key;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -52,10 +54,10 @@ public class Rule {
     private final List<String> regex = new ArrayList<>();
     private final boolean hasBlockMessage;
     private final String blockMessage;
-    private final Sound blockSound;
-    private final float blockSoundVolume;
-    private final float blockSoundPitch;
-    private final boolean hasBlockSound;
+    private String blockSoundName;
+    private float blockSoundVolume;
+    private float blockSoundPitch;
+    private boolean hasBlockSound;
 
     /**
      * Creates the rule using a configuration section.
@@ -103,28 +105,21 @@ public class Rule {
         // Look for block sounds.
         if(config.isSet("blockSound.sound")) {
             hasBlockSound = true;
-            blockSound = Sound.valueOf(config.getString("blockSound.sound"));
+            blockSoundName = config.getString("blockSound.sound");
 
-            if(config.isSet("blockSound.pitch")) {
-                blockSoundPitch = (float) config.getDouble("blockSound.pitch");
-            }
-            else {
-                blockSoundPitch = 1.0f;
-            }
+            blockSoundPitch = config.isSet("blockSound.pitch")
+                ? (float) config.getDouble("blockSound.pitch")
+                : 1.0f;
 
-            // Check for Sound volume.
-            if(config.isSet("blockSound.volume")) {
-                blockSoundVolume = (float) config.getDouble("blockSound.volume");
-            }
-            else {
-                blockSoundVolume = 1.0f;
-            }
+            blockSoundVolume = config.isSet("blockSound.volume")
+                ? (float) config.getDouble("blockSound.volume")
+                : 1.0f;
         }
         else {
             hasBlockSound = false;
-            blockSound = Sound.values()[0];
-            blockSoundVolume = 0;
+            blockSoundName = "minecraft:entity.experience_orb.pickup";
             blockSoundPitch = 0;
+            blockSoundVolume = 0;
         }
 
         // Register the dummy commands if the Rule Type is MESSAGE.
@@ -148,12 +143,17 @@ public class Rule {
 
     /**
      * Get the block sound of the rule.
-     * Returns whatever the first sound is in the Sound enum if one isn't set.
+     * Returns a default sound if one isn't set.
      * @return Block Sound of the rule.
      */
     public Sound getBlockSound() {
-        if(hasBlockSound) {
-            return blockSound;
+        if(hasBlockSound && blockSoundName != null) {
+            try {
+                return Registry.SOUNDS.get(Key.key(blockSoundName));
+            } catch (Exception e) {
+                // Fallback to default
+                return CommandBlockerPro.getGlobalBlockSound();
+            }
         }
 
         return CommandBlockerPro.getGlobalBlockSound();
