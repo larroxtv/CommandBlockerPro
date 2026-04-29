@@ -23,7 +23,7 @@ CommandBlockerPro is a feature-rich command blocking plugin for PaperMC (and for
 
 ## Requirements
 * Java 21 or newer
-* Server Software with Spigot API.
+* Server Software with Paper API.
 * Minecraft 1.12 or later
 * [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) (Optional)
 
