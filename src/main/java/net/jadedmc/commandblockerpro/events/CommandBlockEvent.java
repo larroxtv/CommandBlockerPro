@@ -29,7 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This even is called when a player is blocked from using a command.
