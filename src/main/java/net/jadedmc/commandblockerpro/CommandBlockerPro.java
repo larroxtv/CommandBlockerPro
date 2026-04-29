@@ -25,6 +25,8 @@
 package net.jadedmc.commandblockerpro;
 
 import net.jadedmc.commandblockerpro.rules.Rule;
+import net.kyori.adventure.key.Key;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +75,12 @@ public class CommandBlockerPro {
     @Nullable
     public static Sound getGlobalBlockSound() {
         if(plugin.getConfigManager().getConfig().isSet("blockSound.sound")) {
-            return Sound.valueOf(plugin.getConfigManager().getConfig().getString("blockSound.sound"));
+            try {
+                String soundName = plugin.getConfigManager().getConfig().getString("blockSound.sound");
+                return Registry.SOUNDS.get(Key.key(soundName));
+            } catch (Exception e) {
+                return null;
+            }
         }
 
         return null;
